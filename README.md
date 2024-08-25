@@ -1,2 +1,2 @@
 # Payroll Automation App
-This is a free to use app based on: https://mercadata.streamlit.app/
+This is a free-app based on: https://mercadata.streamlit.app/
