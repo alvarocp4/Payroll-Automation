@@ -24,21 +24,21 @@ else:
     st.warning(f"Logo no encontrado en {logo_path}")
 
 # Subir archivos PDF
-uploaded_files = st.file_uploader("Sube tus archivos CSV", type="csv", accept_multiple_files=True)
+uploaded_files = st.file_uploader("Sube tus archivos Excel", type="pdf", accept_multiple_files=True)
 
 if uploaded_files:
-    st.success(f"Has subido {len(uploaded_files)} archivo(s) CSV.")
+    st.success(f"Has subido {len(uploaded_files)} archivo(s) Excel.")
 
     # Procesar los archivos PDF cuando el botón es presionado
-    if st.button("Procesar CSV"):
+    if st.button("Procesar Excel"):
         try:
             # Pasar los archivos PDF a la función de procesamiento
             process_pdfs(uploaded_files)  # Asegúrate de que esta función esté bien definida en process_data.py
-            st.success("Archivos CSV procesados correctamente.")
+            st.success("Archivos Excel procesados correctamente.")
         except Exception as e:
-            st.error(f"Error al procesar los archivos CSV: {e}")
+            st.error(f"Error al procesar los archivos Excel: {e}")
 else:
-    st.warning("Por favor, sube al menos un archivo CSV para continuar.")
+    st.warning("Por favor, sube al menos un archivo Excel para continuar.")
 
 # Barra lateral
 with st.sidebar:
