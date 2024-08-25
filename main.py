@@ -19,7 +19,7 @@ logo_path = "images/logo_santander.png"  # Cambia esto a la ubicación de tu arc
 
 # Mostrar el logo como banner en la parte superior
 if os.path.exists(logo_path):
-    st.image(logo_path, width=480, use_column_width=True)  # Ajusta el ancho del logo según tu preferencia
+    st.image(logo_path, width=200, use_column_width=True)  # Ajusta el ancho del logo según tu preferencia
 else:
     st.warning(f"Logo no encontrado en {logo_path}")
 
