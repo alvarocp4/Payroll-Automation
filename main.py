@@ -34,11 +34,11 @@ if uploaded_files:
         try:
             # Pasar los archivos PDF a la función de procesamiento
             process_pdfs(uploaded_files)  # Asegúrate de que esta función esté bien definida en process_data.py
-            st.success("Archivos PDF procesados correctamente.")
+            st.success("Archivos CSV procesados correctamente.")
         except Exception as e:
-            st.error(f"Error al procesar los archivos PDF: {e}")
+            st.error(f"Error al procesar los archivos CSV: {e}")
 else:
-    st.warning("Por favor, sube al menos un archivo PDF para continuar.")
+    st.warning("Por favor, sube al menos un archivo CSV para continuar.")
 
 # Barra lateral
 with st.sidebar:
