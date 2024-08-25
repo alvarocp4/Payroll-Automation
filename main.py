@@ -17,12 +17,18 @@ st.set_page_config(
 csv_path = "data/mercadata.csv"
 logo_path = "images/logo_santander.png"  # Cambia esto a la ubicación de tu archivo de logo
 
-# Mostrar el logo como banner en la parte superior
 if os.path.exists(logo_path):
-    st.image(logo_path, width=200)  # Ajusta el ancho del logo según tu preferencia
+    # Inserta el código HTML para centrar la imagen
+    st.markdown(
+        f"""
+        <div style="display: flex; justify-content: center;">
+            <img src="data:image/png;base64,{st.image(logo_path, use_column_width=True, output_format="auto")}" width="200"/>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 else:
     st.warning(f"Logo no encontrado en {logo_path}")
-
 # Subir archivos PDF
 uploaded_files = st.file_uploader("Sube tus archivos CSV", type="csv", accept_multiple_files=True)
 
