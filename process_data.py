@@ -24,7 +24,8 @@ def categorize_item(item):
         "Otros": ["huevos frescos", "estropajo", "toall.bebe", "dermo", "gamuza atrapapolvo", "rollo hogar doble", "lavavajillas", "colg. triple", "gel crema"],
         "Peluqueria": ["caldo de pollo", "salsa de soja", "agua mineral", "soja calcio brick"],
         "Ticket-Restaurant": ["aguacate", "fresón", "nectarina", "paraguayo", "tomate", "pera rocha", "ciruela roja", "banana", "pera conferencia", "mezcla de frutos rojos"],
-        "Viajes": ["almendra", "anacardo", "nuez", "pasas sultanas", "cacahuete"]
+        "Viajes": ["almendra", "anacardo", "nuez", "pasas sultanas", "cacahuete"],
+        "Seguro": ["Poliza"]
     }
 
     for category, keywords in categories.items():
