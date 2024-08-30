@@ -42,7 +42,7 @@ else:
 
 # Barra lateral
 with st.sidebar:
-    st.title('💵 Gastos mensuales')
+    st.title('📈 Monthly Expenses')
     
 
     # Filtro por meses
@@ -65,10 +65,10 @@ with st.sidebar:
     else:
         st.error(f"Archivo {csv_path} no encontrado. Asegúrate de que `process_data.py` haya sido ejecutado correctamente.")
 
-    st.subheader("Sobre la Aplicación")
+    st.subheader("About the App")
     st.write('''
-        - Esta aplicación pretende analizar los patrones de gasto en diferentes categorías y a lo largo del tiempo.
-        - Beta Testing de [Izan](https://www.tiktok.com/@quarto.es/video/7402546595943730464), en desarrollo. ¡Se aceptan sugerencias!
+        - This application aims to analyze personal spending patterns in different categories and over time.
+        - Beta testing based on: https://mercadata.streamlit.app/
     ''')
 
 # Verificar si el archivo CSV existe y no está vacío
