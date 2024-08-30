@@ -10,10 +10,10 @@ output_csv = "data/mercadata.csv"
 
 def categorize_item(item):
     """Función para categorizar los ítems"""
-    # Normalizamos el nombre del ítem
+    # We normalize the item name
     item = re.sub(r'[^a-zA-Z\s]', '', item).lower()
     
-    # Diccionario de categorías por palabras clave
+    # Keyword category dictionary
     categories = {
         "Compra-Ropa/Casa": ["ketchup", "azúcar", "harina", "sabor", "para freir"],
         "Compra-Super": ["leche", "yogur", "mantequilla", "queso", "cremoso", "stracciatella", "griego", "nata"],
@@ -40,7 +40,7 @@ def extract_location(text):
 def process_pdfs(uploaded_files):
     data = []
 
-    # Asegurar que el directorio de datos exista
+    # Ensure that the data directory exists
     data_path = "data"
     if not os.path.exists(data_path):
         os.makedirs(data_path)
@@ -50,36 +50,36 @@ def process_pdfs(uploaded_files):
         with open(pdf_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
-        # Procesar cada archivo PDF
+        # Process each PDF file
         with pdfplumber.open(pdf_path) as pdf:
             page = pdf.pages[0]
             text = page.extract_text()
 
             if text:
-                print("Texto extraído del PDF:")
+                print("Text extracted from Excel:")
                 print(text)
 
-                # Extraer ubicación
+                # Extract location
                 location = extract_location(text)
 
-                # Extraer fecha e identificador del ticket
+                # Extract date and ticket identifier
                 date_match = re.search(r"\d{2}/\d{2}/\d{4} \d{2}:\d{2}", text)
-                fecha = date_match.group(0) if date_match else "Fecha no encontrada"
+                fecha = date_match.group(0) if date_match else "Date not found"
 
                 ticket_match = re.search(r"FACTURA SIMPLIFICADA:\s+([0-9\-]+)", text)
-                identificativo = ticket_match.group(1) if ticket_match else "Identificativo no encontrado"
+                identificativo = ticket_match.group(1) if ticket_match else "Identifier not found"
 
-                # Extraer ítems y precios utilizando un patrón más flexible
-                # Patrón mejorado para capturar ítems con múltiples palabras y precios
+                # Extract items and prices using a more flexible pattern
+                # Enhanced pattern for capturing items with multiple words and prices
                 item_pattern = r"([A-Z0-9\s/]+)\s+(\d+,\d{2})"
 
-                # Filtrar líneas no relacionadas con productos
+                # Filter lines not related to products
                 patron_no_producto = re.compile(r"(TARJETA BANCARIA|TOTAL|SUBTOTAL|CREDITO)", re.IGNORECASE)
                 
-                # Filtrar líneas no relacionadas con productos
+                # Filter lines not related to products
                 filtered_lines = [line for line in text.splitlines() if not patron_no_producto.search(line)]
 
-                # Extraer ítems de las líneas filtradas
+                # Extract items from filtered rows
                 items = re.findall(item_pattern, '\n'.join(filtered_lines))
 
                 for item, precio in items:
@@ -88,22 +88,22 @@ def process_pdfs(uploaded_files):
                     categoria = categorize_item(item)
                     data.append([fecha, identificativo, location, item, categoria, precio])
             else:
-                print(f"No se pudo extraer texto del archivo: {uploaded_file.name}")
+                print(f"Text could not be extracted from the file: {uploaded_file.name}")
 
     if data:
-        # Crear un DataFrame y guardarlo localmente como CSV
+        # Create a DataFrame and save locally as CSV
         df = pd.DataFrame(data, columns=["fecha", "identificativo de ticket", "ubicación", "item", "categoría", "precio"])
         df.to_csv(output_csv, index=False)
-        st.success(f"Archivo CSV generado con éxito: {output_csv}")
+        st.success(f"CSV file generated successfully: {output_csv}")
 
     else:
-        st.info("No se encontraron datos para escribir en el archivo CSV.")
+        st.info("No data was found to write to the CSV file.")
 
 def main():
-    st.title("Procesador de Tickets PDF")
+    st.title("PDF Ticket Processor")
 
-    # Permitir a los usuarios subir archivos PDF
-    uploaded_files = st.file_uploader("Sube tus archivos PDF", accept_multiple_files=True, type="pdf")
+    # Allow users to upload PDF files
+    uploaded_files = st.file_uploader("Upload your Excel files", accept_multiple_files=True, type="pdf")
 
     if uploaded_files:
         process_pdfs(uploaded_files)
